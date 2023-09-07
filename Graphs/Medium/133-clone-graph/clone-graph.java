@@ -37,7 +37,6 @@ class Solution {
         if(children != null) {
             for(int i=0; i<children.size(); i++) {
                 Node childNode = children.get(i);
-                System.out.println("Childs "+childNode.val);
                 Node newChildNode = cloneGraphHelper(childNode,visited);
                 newNode.neighbors.add(newChildNode);
             }
