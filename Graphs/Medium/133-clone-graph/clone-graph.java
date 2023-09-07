@@ -31,16 +31,15 @@ class Solution {
         if(visited.containsKey(node.val)) {
             return visited.get(node.val);
         }
-        Node newNode = new Node(node.val, new ArrayList<Node>());
+
+        Node newNode = new Node(node.val);
         visited.put(node.val, newNode);
-        List<Node> children = node.neighbors;
-        if(children != null) {
-            for(int i=0; i<children.size(); i++) {
-                Node childNode = children.get(i);
-                Node newChildNode = cloneGraphHelper(childNode,visited);
-                newNode.neighbors.add(newChildNode);
-            }
+
+        for(Node childNode: node.neighbors) {
+            Node newChildNode = cloneGraphHelper(childNode, visited);
+            newNode.neighbors.add(newChildNode);
         }
+    
 
         return newNode;
     }
