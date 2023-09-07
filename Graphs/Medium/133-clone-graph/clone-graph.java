@@ -28,19 +28,19 @@ class Solution {
     }
 
     public Node cloneGraphHelper(Node node, Map<Integer, Node> visited) {
+        if(visited.containsKey(node.val)) {
+            return visited.get(node.val);
+        }
         Node newNode = new Node(node.val, new ArrayList<Node>());
         visited.put(node.val, newNode);
-
-        for(Node child: node.neighbors) {
-            Node newChildNode;
-            if(visited.containsKey(child.val)) {
-                newChildNode = visited.get(child.val);
-            } else {
-                newChildNode = cloneGraphHelper(child,visited);
+        List<Node> children = node.neighbors;
+        if(children != null) {
+            for(int i=0; i<children.size(); i++) {
+                Node childNode = children.get(i);
+                Node newChildNode = cloneGraphHelper(childNode,visited);
+                newNode.neighbors.add(newChildNode);
             }
-            newNode.neighbors.add(newChildNode);  
         }
-
 
         return newNode;
     }
