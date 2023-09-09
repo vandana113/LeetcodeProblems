@@ -14,26 +14,26 @@ class Solution {
     }
 
     public List<Vertex>[] buildNetwork(int [][] times, int n) {
-        List<Vertex> [] network= new ArrayList[n+1];
+        List<Vertex> [] network= new ArrayList[n];
         for(int [] t : times) {
-            if(network[t[0]] == null) {
-                network[t[0]] = new ArrayList<>();
+            if(network[t[0]-1] == null) {
+                network[t[0]-1] = new ArrayList<>();
             }
-            network[t[0]].add(new Vertex(t[1], t[2]));
+            network[t[0]-1].add(new Vertex(t[1]-1, t[2]));
         }
         return network;
     }
 
     public int [] findShortestPath(List<Vertex>[] network, int n, int k) {
-        int [] dist = new int[n+1];
+        int [] dist = new int[n];
         Arrays.fill(dist, Integer.MAX_VALUE);
         PriorityQueue<Vertex> queue = new PriorityQueue<>(new Comparator<>() {
             public int compare (Vertex v1, Vertex v2) {
                 return v2.wt - v1.wt;
             }
         });
-        dist[k] = 0;
-        queue.add(new Vertex(k, 0));
+        dist[k-1] = 0;
+        queue.add(new Vertex(k-1, 0));
 
         while(!queue.isEmpty()) {
             Vertex v = queue.remove();
@@ -63,6 +63,6 @@ class Solution {
             }     
         }
 
-        return (vtxVisited==dist.length - 1) ? time : -1;
+        return (vtxVisited == dist.length) ? time : -1;
     }
 }
