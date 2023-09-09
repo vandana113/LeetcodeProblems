@@ -15,13 +15,13 @@ class Solution {
 
     public List<Vertex>[] buildNetwork(int [][] times, int n) {
         List<Vertex> [] network= new ArrayList[n+1];
-        for(int i=0; i<=n; i++) {
-             network[i] = new ArrayList<>();
-        }
         for(int [] time : times) {
             int v1 = time[0];
             int v2 = time[1];
             int wt = time[2];
+            if(network[v1] == null) {
+                network[v1] = new ArrayList<>();
+            }
             network[v1].add(new Vertex(v2, wt));
         }
         return network;
@@ -40,6 +40,9 @@ class Solution {
 
         while(!queue.isEmpty()) {
             Vertex v = queue.remove();
+            if(network[v.vtx] == null) {
+                continue;
+            }
             for(Vertex neighbours: network[v.vtx]) {
                 int nvtx = neighbours.vtx;
                 int wt = neighbours.wt;
