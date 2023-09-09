@@ -40,7 +40,6 @@ class Solution {
 
         while(!queue.isEmpty()) {
             Vertex v = queue.remove();
-            System.out.println("queue removal " + v.vtx);
             for(Vertex neighbours: network[v.vtx]) {
                 int nvtx = neighbours.vtx;
                 int wt = neighbours.wt;
