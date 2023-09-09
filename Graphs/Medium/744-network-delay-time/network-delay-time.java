@@ -15,14 +15,11 @@ class Solution {
 
     public List<Vertex>[] buildNetwork(int [][] times, int n) {
         List<Vertex> [] network= new ArrayList[n+1];
-        for(int [] time : times) {
-            int v1 = time[0];
-            int v2 = time[1];
-            int wt = time[2];
-            if(network[v1] == null) {
-                network[v1] = new ArrayList<>();
+        for(int [] t : times) {
+            if(network[t[0]] == null) {
+                network[t[0]] = new ArrayList<>();
             }
-            network[v1].add(new Vertex(v2, wt));
+            network[t[0]].add(new Vertex(t[1], t[2]));
         }
         return network;
     }
