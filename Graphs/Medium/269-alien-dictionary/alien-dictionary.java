@@ -48,11 +48,9 @@ class Solution {
         int [] inorder = new int[26];
         for(int i=0; i<26; i++) {
             if(chars[i]!=null) {
-             
-                System.out.println("inorder cal curr "+chars[i].c + " "+chars[i].next.size());
+            
                 totalAlpha++;
                 for(Alpha next: chars[i].next) {
-                     System.out.println("inorder cal next "+next.c);
                     inorder[(next.c - 'a')]++;
                 }
             } else {
@@ -71,10 +69,8 @@ class Solution {
         // Update the indegree of neighbours and add to queue if indegree = 0
         while(!queue.isEmpty()){
             Alpha currAlpha = queue.remove();
-            System.out.println("queue node "+currAlpha.c);
             result+=currAlpha.c + "";
             for(Alpha currAlphaNext: currAlpha.next) {
-                 System.out.println("queue node next + inorder "+currAlphaNext.c + " "+inorder[currAlphaNext.c - 'a']);
                 if(--inorder[currAlphaNext.c - 'a'] == 0) {
                     queue.add(currAlphaNext);
                 }
