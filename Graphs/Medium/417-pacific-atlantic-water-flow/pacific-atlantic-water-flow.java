@@ -5,20 +5,20 @@ class Solution {
     public List<List<Integer>> pacificAtlantic(int[][] heights) {
         m = heights.length;
         n = heights[0].length;
-        Queue<int[]> pacificOcean = new LinkedList<>();
-        Queue<int[]> atlanticOcean = new LinkedList<>();
+        if(m == 0 || n==0) {
+            return new ArrayList<>();
+        }
+        boolean [][] pacificReachable = new boolean[m][n];
+        boolean [][] atlanticReachable = new boolean[m][n];
 
         for(int i=0;i<m;i++){
-            pacificOcean.add(new int[]{i, 0});
-            atlanticOcean.add(new int[]{i, n-1});
+            dfs(i, 0, heights, pacificReachable);
+            dfs(i, n-1, heights, atlanticReachable);
         }
         for(int i=0;i<n;i++){
-            pacificOcean.add(new int[]{0, i});
-            atlanticOcean.add(new int[]{m-1, i});
+            dfs(0, i, heights, pacificReachable);
+            dfs(m-1, i,heights, atlanticReachable);
         }
-
-        boolean [][] pacificReachable = bfs(heights, pacificOcean);
-        boolean [][] atlanticReachable = bfs(heights, atlanticOcean);
 
         List<List<Integer>> result =new ArrayList<>();
 
@@ -32,33 +32,25 @@ class Solution {
         return result;
     }
 
-    public boolean[][] bfs(int [][] heights, Queue<int[]> queue) {
-        boolean [][] reachable = new boolean[m][n];
-        
+    public void dfs(int i, int j, int [][] heights, boolean [][] reachable) {
+        reachable[i][j] = true;
+        for(int [] dir: DIRECTIONS) {
+            int newRow = i + dir[0];
+            int newCol = j + dir[1];
 
-        while(!queue.isEmpty()) {
-            int [] coord= queue.remove();
-            int i = coord[0];
-            int j = coord[1];
-            reachable[i][j] = true;
-            for(int [] dir: DIRECTIONS) {
-                int newRow = i + dir[0];
-                int newCol = j + dir[1];
-
-                if(newRow<0 || newRow>=m || newCol<0 || newCol>=n) {
-                    continue;
-                }
-
-                if(reachable[newRow][newCol]) {
-                    continue;
-                }
-
-                if(heights[newRow][newCol] < heights[i][j]) {
-                    continue;
-                }
-                queue.add(new int[]{newRow, newCol});
+            if(newRow<0 || newRow>=m || newCol<0 || newCol>=n) {
+                continue;
             }
-        } 
-        return reachable;
+
+            if(reachable[newRow][newCol]) {
+                continue;
+            }
+
+            if(heights[newRow][newCol] < heights[i][j]) {
+                continue;
+            }
+            dfs(newRow, newCol, heights, reachable);
+        }
+        return;
     }
 }
