@@ -34,12 +34,10 @@ class Solution {
     }
 
     public boolean findCycle(int v, List<Integer>[] graph, boolean [] visited, int parent) {
-        System.out.println("-- "+v);
 
         visited[v] = true;
 
         for(int children: graph[v]) {
-            System.out.println("children "+children);
             if(!visited[children]) {
                 if(!findCycle(children, graph, visited, v)) {
                     return false;
