@@ -22,11 +22,8 @@ class Solution {
         }
 
         for(int i=0; i<edges.length; i++) {
-            int v1 = edges[i][0];
-            int v2 = edges[i][1];
-
-            graph[v2].add(v1);
-            graph[v1].add(v2);
+            graph[edges[i][1]].add(edges[i][0]);
+            graph[edges[i][0]].add(edges[i][1]);
 
         }
 
