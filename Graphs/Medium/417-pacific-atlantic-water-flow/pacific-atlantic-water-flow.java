@@ -40,7 +40,6 @@ class Solution {
             int [] coord= queue.remove();
             int i = coord[0];
             int j = coord[1];
-            System.out.println(" --- "+i +" "+j);
             reachable[i][j] = true;
             for(int [] dir: DIRECTIONS) {
                 int newRow = i + dir[0];
@@ -57,11 +56,9 @@ class Solution {
                 if(heights[newRow][newCol] < heights[i][j]) {
                     continue;
                 }
-                System.out.println("add to queue");
                 queue.add(new int[]{newRow, newCol});
             }
         } 
-            System.out.println("Exitttt");
         return reachable;
     }
 }
