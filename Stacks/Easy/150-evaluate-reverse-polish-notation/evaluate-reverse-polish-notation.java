@@ -14,14 +14,19 @@ class Solution {
                 int n1 = stack.pop();
                 int n2 = stack.pop();
                 int result = 0;
-                if(token.equals("+")) {
-                    result = n1 + n2;
-                } else if(token.equals("*")) {
-                    result = n1 * n2;
-                } else if(token.equals("/")) {
-                    result = n2 / n1;
-                } else if(token.equals("-")) {
-                    result = n2 - n1;
+                switch(token) {
+                    case "+":
+                        result = n1 + n2;
+                        break;
+                    case "*":
+                        result = n1 * n2;
+                        break;
+                    case "/":
+                        result = n2 / n1;
+                        break;
+                    case "-":
+                        result = n2 - n1;
+                        break;
                 }
                 stack.push(result);
             } else {
