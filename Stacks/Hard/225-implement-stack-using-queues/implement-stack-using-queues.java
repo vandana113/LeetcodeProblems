@@ -1,40 +1,32 @@
 class MyStack {
-    Queue<Integer> queue1;
-    Queue<Integer> queue2;
+    Queue<Integer> queue;
     int front;
-    int s = 0;
 
     public MyStack() {
-        queue1 = new LinkedList<>();
-        queue2 = new LinkedList<>();
+        queue = new LinkedList<>();
     }
     
     public void push(int x) {
-        front = x;
-        queue1.add(x);
+       queue.add(x);
+       int size = queue.size();
+       while(size > 1) {
+           int top = queue.remove();
+           queue.add(top);
+           size --;
+       }
     }
     
     public int pop() {
-       while(queue1.size()>1) {
-           front = queue1.remove();
-           queue2.add(front);
-       }
-
-       int removed = queue1.remove();
-        Queue<Integer> temp = queue1;
-        queue1 = queue2;
-        queue2 = temp;
-
-        return removed;
+       return queue.remove();
     }
 
     
     public int top() {
-        return front;
+        return queue.peek();
     }
     
     public boolean empty() {
-        return queue1.isEmpty();
+        return queue.isEmpty();
     }
 }
 
