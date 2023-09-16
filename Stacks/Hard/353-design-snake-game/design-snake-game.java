@@ -44,7 +44,12 @@ class SnakeGame {
                 nextj = j;
                 break;
         }
-        if(nexti>=0 && nexti<height && nextj>=0 && nextj<width) {
+
+        if(nexti<0 || nexti>=height|| nextj<0 || nextj>=width) {
+            // Out of bound
+            return -1;
+        }
+       
             int nextPlace = nexti*n + nextj;
 
             // Remove tail
@@ -66,10 +71,7 @@ class SnakeGame {
             }
             queue.addLast(nextPlace);
             visited.add(nextPlace);
-        } else {
-            // Out of bound
-            return -1;
-        }
+        
 
         return this.queue.size() - 1;
     }
