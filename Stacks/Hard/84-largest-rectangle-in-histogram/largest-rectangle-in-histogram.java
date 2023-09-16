@@ -18,10 +18,7 @@ class Solution {
             }
             stack.push(i);
         }
-        int rightMost = 0;
-        if(!stack.isEmpty()) {
-            rightMost = stack.peek();
-        }
+        int rightMost = heights.length;
         while(!stack.isEmpty()) {
             int top = stack.peek();
             stack.pop();
@@ -31,7 +28,7 @@ class Solution {
                 leftMost = stack.peek();
             }
 
-            int rect = (rightMost - leftMost) * heights[top];
+            int rect = (rightMost - leftMost - 1) * heights[top];
             result = Math.max(rect, result);
         }
 
