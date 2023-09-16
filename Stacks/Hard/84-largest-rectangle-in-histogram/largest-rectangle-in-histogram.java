@@ -13,9 +13,8 @@ class Solution {
                 } else {
                     leftMost = stack.peek();
                 }
-                int leftRect = (top - leftMost) * heights[top];
-                int rightRect = (i - top - 1) * heights[top];
-                result = Math.max(leftRect + rightRect, result);
+                int rect = (i - leftMost - 1) * heights[top];
+                result = Math.max(rect, result);
             }
             stack.push(i);
         }
@@ -32,9 +31,8 @@ class Solution {
                 leftMost = stack.peek();
             }
 
-            int leftHist = (top - leftMost) * heights[top];
-            int rightHist = (rightMost - top) * heights[top];
-            result = Math.max(rightHist + leftHist, result);
+            int rect = (rightMost - leftMost) * heights[top];
+            result = Math.max(rect, result);
         }
 
         return result;
