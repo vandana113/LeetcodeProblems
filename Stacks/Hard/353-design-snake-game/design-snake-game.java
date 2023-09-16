@@ -21,27 +21,23 @@ class SnakeGame {
     }
     
     public int move(String direction) {
-        int nexti = 0;
-        int nextj = 0;
         int curr = queue.peekLast();
         int i = curr/n;
         int j = curr%n;
+        int nexti = i;
+        int nextj = j;
         switch(direction) {
             case "U":
                 nexti = i-1;
-                nextj = j;
                 break; 
             case "L":
-                nexti = i;
                 nextj = j-1;
                 break;
             case "R":
-                nexti = i;
                 nextj = j+1;
                 break;
             case "D":
                 nexti = i+1;
-                nextj = j;
                 break;
         }
 
