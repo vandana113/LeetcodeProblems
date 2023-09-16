@@ -3,7 +3,6 @@ class SnakeGame {
     Deque<Integer> queue = new LinkedList<>();
     int score;
     Set<Integer> visited = new HashSet<>();
-    HashMap<Integer, Integer> foodPlaces = new HashMap<>();
     int width;
     int height;
     int n;
@@ -14,11 +13,6 @@ class SnakeGame {
         this.width = width;
         this.height = height;
         this.n = width + height;
-        for(int i=0; i<food.length; i++) {
-            int foodIndex = food[i][0]*n + food[i][1];
-            int freq = foodPlaces.getOrDefault(foodIndex, 0); 
-            foodPlaces.put(foodIndex, freq+1);
-        }
         
         int start = 0;
         queue.addLast(0);
@@ -53,7 +47,6 @@ class SnakeGame {
                 nextj = j;
                 break;
         }
-        System.out.println("Direction "+direction+" curr "+i+ " "+j);
         if(nexti>=0 && nexti<height && nextj>=0 && nextj<width) {
             int nextPlace = nexti*n + nextj;
 
