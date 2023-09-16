@@ -59,31 +59,26 @@ class SnakeGame {
 
             // Remove tail
             int tailPlace = queue.removeFirst();
-            // System.out.println("REMOVED "+tail/n+ " "+tail%n);
             visited.remove(tailPlace);
             
             // Check if snake is already in that place
             if(visited.contains(nextPlace)) {
-                System.out.println("snake already in box");
                 return -1;
             }
             // Check if food is consumed
             if(canFoodBeConsumed(nexti, nextj)) {
                 this.score++;
-                System.out.println("food consumed");
                 // Update food coord
                 this.foodCoord++;
 
+                // Add tail back
                 queue.addFirst(tailPlace);
                 visited.add(tailPlace);
             }
-            
-            System.out.println("ADD "+nexti+ " "+nextj);
             queue.addLast(nextPlace);
             visited.add(nextPlace);
         } else {
             // Out of bound
-            System.out.println("snake out of bound");
             return -1;
         }
 
