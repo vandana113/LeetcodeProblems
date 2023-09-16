@@ -1,7 +1,6 @@
 class SnakeGame {
 
     Deque<Integer> queue = new LinkedList<>();
-    int score;
     Set<Integer> visited = new HashSet<>();
     int width;
     int height;
@@ -13,14 +12,12 @@ class SnakeGame {
         this.width = width;
         this.height = height;
         this.n = width + height;
-        
-        int start = 0;
+    
         queue.addLast(0);
         visited.add(0);
 
         foodCoord = 0;
         this.food = food;
-        score = 0;
     }
     
     public int move(String direction) {
@@ -60,7 +57,6 @@ class SnakeGame {
             }
             // Check if food is consumed
             if(canFoodBeConsumed(nexti, nextj)) {
-                this.score++;
                 // Update food coord
                 this.foodCoord++;
 
@@ -75,7 +71,7 @@ class SnakeGame {
             return -1;
         }
 
-        return this.score;
+        return this.queue.size() - 1;
     }
 
     private boolean canFoodBeConsumed(int nexti,  int nextj) {
