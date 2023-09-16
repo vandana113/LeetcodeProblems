@@ -15,7 +15,6 @@ class Solution {
                 }
                 int leftRect = (top - leftMost) * heights[top];
                 int rightRect = (i - top - 1) * heights[top];
-                // System.out.println("first "+i+" "+curr + " "+top + " " + leftMost + " "+leftRect + " "+ rightRect);
                 result = Math.max(leftRect + rightRect, result);
             }
             stack.push(i);
@@ -35,9 +34,7 @@ class Solution {
 
             int leftHist = (top - leftMost) * heights[top];
             int rightHist = (rightMost - top) * heights[top];
-// System.out.println("second "+top + " " + leftMost + " "+leftHist + " "+ rightMost + " "+rightHist+" "+(leftHist+rightHist));
             result = Math.max(rightHist + leftHist, result);
-            // rightMost = top;
         }
 
         return result;
