@@ -50,27 +50,27 @@ class SnakeGame {
             return -1;
         }
        
-            int nextPlace = nexti*n + nextj;
+        int nextPlace = nexti*n + nextj;
 
-            // Remove tail
-            int tailPlace = queue.removeFirst();
-            visited.remove(tailPlace);
+        // Remove tail
+        int tailPlace = queue.removeFirst();
+        visited.remove(tailPlace);
             
-            // Check if snake is already in that place
-            if(visited.contains(nextPlace)) {
-                return -1;
-            }
-            // Check if food is consumed
-            if(canFoodBeConsumed(nexti, nextj)) {
-                // Update food coord
-                this.foodCoord++;
+        // Check if snake is already in that place
+        if(visited.contains(nextPlace)) {
+            return -1;
+        }
+        // Check if food is consumed
+        if(canFoodBeConsumed(nexti, nextj)) {
+            // Update food coord
+            this.foodCoord++;
 
-                // Add tail back
-                queue.addFirst(tailPlace);
-                visited.add(tailPlace);
-            }
-            queue.addLast(nextPlace);
-            visited.add(nextPlace);
+            // Add tail back
+            queue.addFirst(tailPlace);
+            visited.add(tailPlace);
+        }
+        queue.addLast(nextPlace);
+        visited.add(nextPlace);
         
 
         return this.queue.size() - 1;
