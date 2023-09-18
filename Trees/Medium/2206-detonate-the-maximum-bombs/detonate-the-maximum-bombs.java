@@ -2,7 +2,7 @@ class Solution {
     public int maximumDetonation(int[][] bombs) {
         Map<Integer, List<Integer>> graph = new HashMap<>();
         int n = bombs.length;
-
+        
         // Build the graph
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -18,25 +18,29 @@ class Solution {
                 }
             }
         }
-
+        
         int answer = 0;
         for (int i = 0; i < n; i++) {
-            int count = dfs(i, new HashSet<>(), graph);
-            answer = Math.max(answer, count);
+            answer = Math.max(answer, dfs(i, graph));
         }
-
+        
         return answer;
     }
-
-    // DFS to get the number of nodes reachable from a given node cur
-    private int dfs(int cur, Set<Integer> visited, Map<Integer, List<Integer>> graph) {
-        visited.add(cur);
-        int count = 1;
-        for (int neib : graph.getOrDefault(cur, new ArrayList<>())) {
-            if (!visited.contains(neib)) {
-                count += dfs(neib, visited, graph);
+    
+    private int dfs(int i, Map<Integer, List<Integer>> graph) {
+        Stack<Integer> stack = new Stack<>();
+        Set<Integer> visited = new HashSet<>();
+        stack.push(i);
+        visited.add(i);
+        while (!stack.isEmpty()) {
+            int cur = stack.pop();
+            for (int neib : graph.getOrDefault(cur, new ArrayList<>())) {
+                if (!visited.contains(neib)) {
+                    visited.add(neib);
+                    stack.push(neib);
+                }
             }
         }
-        return count;
+        return visited.size();
     }
 }
