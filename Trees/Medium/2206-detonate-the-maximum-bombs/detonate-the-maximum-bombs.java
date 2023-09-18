@@ -20,11 +20,9 @@ class Solution {
         visited.add(i);
         while(!stack.isEmpty()) {
             int popped = stack.pop();
-            System.out.println("pod "+popped);
             for(int j=0; j<n; j++) {
                 if(!visited.contains(j) && connected(bombs[popped][0], bombs[popped][1], bombs[j][0],bombs[j][1],bombs[popped][2])) {
                     visited.add(j);
-                    // System.out.println("neigh "+j + visited[j]);
                     stack.push(j);
                 }
             }
