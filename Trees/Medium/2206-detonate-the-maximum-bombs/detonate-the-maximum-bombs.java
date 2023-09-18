@@ -15,9 +15,6 @@ class Solution {
     }
 
     public void dfs(boolean[] visited, int i, int [][] bombs) {
-        int x1 = bombs[i][0];
-        int y1 = bombs[i][1];
-        int r = bombs[i][2];
 
         if(visited[i]) {
             return;
@@ -26,9 +23,7 @@ class Solution {
         count++;
         visited[i] = true;
         for(int j=0; j<n; j++) {
-            int x2 = bombs[j][0];
-            int y2 = bombs[j][1];
-            if(!visited[j] && connected(x1,y1,x2,y2,r)) {
+            if(!visited[j] && connected(bombs[i][0], bombs[i][1], bombs[j][0],bombs[j][1],bombs[i][2])) {
                 dfs(visited, j, bombs);
             }
         }
