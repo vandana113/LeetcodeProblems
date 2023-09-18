@@ -6,7 +6,6 @@ class Solution {
         int maxBomb = 0;
         for(int i=0; i<n; i++) {
             count = 0;
-            System.out.println("-----");
             iterativeDfs(i, bombs);
             maxBomb = Math.max(count, maxBomb);
         }
