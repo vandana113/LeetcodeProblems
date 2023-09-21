@@ -9,9 +9,7 @@ class Solution {
             row.add(1);
             for(int j=1; j<i; j++) {
                 List<Integer> prevRow = result.get(i-1);
-                int first = prevRow.get(j-1);
-                int second = prevRow.get(j);
-                row.add(first + second); 
+                row.add(prevRow.get(j-1) + prevRow.get(j)); 
             }
             row.add(1);
             result.add(row);
