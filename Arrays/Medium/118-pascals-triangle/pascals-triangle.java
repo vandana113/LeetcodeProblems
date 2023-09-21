@@ -6,12 +6,14 @@ class Solution {
         result.add(row0);
         for(int i=1; i<n; i++) {
             List<Integer> row = new ArrayList<>();
-            for(int j=0; j<=i; j++) {
-                int first = (j-1) < 0 ? 0 : result.get(i-1).get(j-1);
-                int second = (j>i-1) ? 0: result.get(i-1).get(j);
-
+            row.add(1);
+            for(int j=1; j<i; j++) {
+                List<Integer> prevRow = result.get(i-1);
+                int first = prevRow.get(j-1);
+                int second = prevRow.get(j);
                 row.add(first + second); 
             }
+            row.add(1);
             result.add(row);
         }
         return result;
