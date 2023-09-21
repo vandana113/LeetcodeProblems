@@ -1,9 +1,8 @@
 class Solution {
     public List<List<Integer>> generate(int n) {
         List<List<Integer>> result = new ArrayList<>();
-        List<Integer> row0 = new ArrayList<>();
-        row0.add(1);
-        result.add(row0);
+        result.add(new ArrayList<>());
+        result.get(0).add(1);
         for(int i=1; i<n; i++) {
             List<Integer> row = new ArrayList<>();
             row.add(1);
