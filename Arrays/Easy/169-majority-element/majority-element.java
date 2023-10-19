@@ -4,17 +4,21 @@ class Solution {
             return nums[0];
         }
 
-        int count = nums.length/2;
-
-        HashMap<Integer,Integer> map = new HashMap<>();
+        int count = 0;
+        int element = -1;
 
         for(int i=0; i<nums.length; i++) {
-            int freq = map.getOrDefault(nums[i],0);
-            if(freq>=count) {
-                return nums[i];
-            } 
-            map.put(nums[i],freq+1);
+            if(count == 0) {
+                element = nums[i];
+                System.out.println("-- "+i +" "+element);
+            }
+            if(element == nums[i]) {
+                count++;
+            } else {
+                count--;
+            }
+            
         }
-        return -1;
+        return element;
     }
 }
