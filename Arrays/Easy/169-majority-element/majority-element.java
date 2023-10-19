@@ -10,7 +10,6 @@ class Solution {
         for(int i=0; i<nums.length; i++) {
             if(count == 0) {
                 element = nums[i];
-                System.out.println("-- "+i +" "+element);
             }
             if(element == nums[i]) {
                 count++;
