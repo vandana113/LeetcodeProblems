@@ -13,6 +13,17 @@ class Solution {
     }
     public List<List<Integer>> kSum(int[] nums, long target, int start, int k) {
         List<List<Integer>> result = new ArrayList<>();
+
+        if(start == nums.length) {
+            return result;
+        }
+
+        long average_value = target / k;
+        
+        if  (nums[start] > average_value || average_value > nums[nums.length - 1]) {
+            return result;
+        }
+        
         
 
         if (k == 2) {
