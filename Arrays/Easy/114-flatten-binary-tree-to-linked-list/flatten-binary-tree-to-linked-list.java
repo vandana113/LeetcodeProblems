@@ -15,47 +15,25 @@
  */
 class Solution {
     public void flatten(TreeNode root) {
-        if (root == null) {
-            return;
-        }
-        int START = 1, END = 2;
-
-        Stack<Pair<TreeNode, Integer>> stack = new Stack<>();
-
-        stack.push(new Pair<>(root, START));
-
-        TreeNode tail = null;
-        TreeNode rightNode = null;
-
-        while(!stack.isEmpty()) {
-            Pair<TreeNode, Integer> pair = stack.pop();
-            TreeNode curr = pair.getKey();
-            int state = pair.getValue();
-
-            if(curr.left == null && curr.right == null) {
-                tail = curr;
-            }
-
-            if(state == START) {
-                if(curr.left != null){
-                    stack.push(new Pair<>(curr, END));
-                    stack.push(new Pair<>(curr.left, START));
-                } else if(curr.right != null) {
-                    stack.push(new Pair<>(curr.right, START));
-                }
-            } else {
-                if(tail!=null) {
-                    tail.right = curr.right;
-                    curr.right = curr.left;
-                    curr.left = null;
-                    rightNode = tail.right;
-                }
-                
-                if(rightNode!=null) {
-                    stack.push(new Pair<>(rightNode, START));
-                }
-            }
-        }
+        // O(1) space
         
+        TreeNode curr = root;
+
+        while(curr!=null) {
+            if(curr.left == null) {
+                curr = curr.right;
+            } else {
+                TreeNode rightMost = curr.left;
+
+                while(rightMost.right!=null){
+                    rightMost = rightMost.right;
+                }
+
+
+                rightMost.right = curr.right;
+                curr.right = curr.left;
+                curr.left = null;
+            }
+        }
     }
 }
