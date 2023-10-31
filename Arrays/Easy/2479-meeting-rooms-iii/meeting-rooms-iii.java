@@ -1,60 +1,58 @@
 class Solution {
     public int mostBooked(int n, int[][] meetings) {
-        // sort by earliest meeting
-        Arrays.sort(meetings, (a,b) -> (a[0] - b[0]));
+        int [] rooms = new int[n];
+        Arrays.sort(meetings, new Comparator<> () {
+            public int compare(int[] meeting1, int [] meeting2) {
+                return Integer.compare(meeting1[0], meeting2[0]);
+            }
+        });
 
-        PriorityQueue<Integer> availableRoom = new PriorityQueue();
+        PriorityQueue<Integer> freeRooms = new PriorityQueue<>();
+        
+        // end Time and room number
+        PriorityQueue<int []> occupiedRooms = new PriorityQueue<>(new Comparator<>() {
+            public int compare(int [] meeting1, int [] meeting2) {
+                if(meeting1[0] == meeting2[0]) {
+                    return meeting1[1] - meeting2[1];
+                }
+                return meeting1[0] - meeting2[0];
+            }
+        });
 
-        // <end time, room occupied> 
-        PriorityQueue<int[]> runningMeeting = new PriorityQueue<int[]>(
-            (a, b) -> a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]
-        );
-
-        // track most used room
-        int[] count = new int[n];
-
-        int result = 0;
-
-        // init
-        for (int i=0;i<n;i++) {
-            availableRoom.offer(i);
+        for(int i=0; i<n; i++) {
+            freeRooms.add(i);
         }
 
-        for (int[] next : meetings) {
-            // check if any room will become available before schedule next meeting
-            while (!runningMeeting.isEmpty() && runningMeeting.peek()[0] <= next[0]) {
-                availableRoom.offer(runningMeeting.poll()[1]);
+
+        for(int i=0; i<meetings.length; i++) {
+            while(!occupiedRooms.isEmpty() && occupiedRooms.peek()[0] <= meetings[i][0]) {
+                int roomNumber = occupiedRooms.peek()[1];
+                occupiedRooms.remove();
+                freeRooms.add(roomNumber);
             }
-
-            // if room is available, then start will be right on time which is next[0]
-            int delayed = next[0];
-
-            // check if any room is currently available
-            if (availableRoom.isEmpty()) {
-                // if not available, then need to wait for a meeting to complete
-                int[] endedMeeting = runningMeeting.poll();
-                // delayed to when this meeting ends
-                delayed = endedMeeting[0];
-                // update room availability
-                availableRoom.offer(endedMeeting[1]);
+            if(!freeRooms.isEmpty()) {
+                int roomNumber = freeRooms.remove();
+                rooms[roomNumber]++;
+                occupiedRooms.add(new int[] {meetings[i][1], roomNumber});
+            } else {
+                // No room empty, delay the current meeting
+                int endTime = occupiedRooms.peek()[0] + (meetings[i][1] - meetings[i][0]);
+                int roomNumber = occupiedRooms.peek()[1];
+                occupiedRooms.remove();
+                occupiedRooms.add(new int[]{endTime, roomNumber});
+                rooms[roomNumber]++;
             }
-
-            // now time to schedule next meeting as there is room available
-            int room = availableRoom.poll();
-            count[room] ++;
-
-            // update tracked most used room number
-            // tip: use smaller room if count is the same!
-            if (count[room] > count[result]) {
-                result = room;
-            } else if (count[room] == count[result]) {
-                result = Math.min(result, room);
-            }
-
-            // meeting is delayed, update the end time
-            runningMeeting.offer(new int[] {delayed + (next[1]-next[0]), room});
         }
 
-        return result;
+        int maxMeetings = 0;
+        int roomNumber = 0;
+        for(int i=0; i<n; i++) {
+            if(rooms[i] > maxMeetings) {
+                maxMeetings = rooms[i];
+                roomNumber = i;
+            }
+        }
+
+        return roomNumber;
     }
 }
