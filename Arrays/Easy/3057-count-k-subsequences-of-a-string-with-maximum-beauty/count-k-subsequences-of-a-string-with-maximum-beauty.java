@@ -49,7 +49,6 @@ class Solution {
             long power = pow(i, k);
 
             long xPower = (x * power) % M;
-            // System.out.println("i " + i +" k "+k +" x "+x+" result "+result +" xPower "+xPower);
             result = ((long)result * (long)xPower) % M;
         }
     
