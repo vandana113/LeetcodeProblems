@@ -15,7 +15,6 @@ class Solution {
         for(int i=0, k=0; i<n; i++) {
             // [1,3,4,2,6,8]
             // 1, 2, 3, 4, 6, 8
-            System.out.print(changed[i]+" ");
             
             if(map.containsKey(changed[i])) {
                 int doubleInt = changed[i] * 2;
